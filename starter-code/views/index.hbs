@@ -1,3 +1,8 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 <a href="/celebrities">Go to celebrities</a>
+
+{{test}}
+{{#each allTheMovies}}
+  <a href='/movie/{{this._id}}'>{{this.title}}</a>
+{{/each}}

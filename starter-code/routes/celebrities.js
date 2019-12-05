@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const celebrity = require('../models/celebrity');
+const movie = require('../models/movie');
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -36,7 +37,12 @@ router.post('/:id', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   celebrity.findById(req.params.id).then(celebrity => {
     console.log(celebrity)
-    res.render('celebrities/show', {celebrity});
+
+    movie.find({_id: {$in: celebrity.movies}}).then(movies => {
+      console.log('movies are ',movies)
+      res.render('celebrities/show', {celebrity, movies});
+
+    })
   }).catch(err => {
     next(err);
   })
